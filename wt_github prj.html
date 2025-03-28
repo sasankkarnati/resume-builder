@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body { font-family: 'Times New Roman', serif; padding: 40px; background: #e6f2ff; color: #333; }
+        .container { display: flex; gap: 20px; }
+        .form-section, .resume-preview { flex: 1; padding: 20px; border-radius: 10px; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .resume { padding: 30px; background: white; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.3); font-size: 16px; line-height: 1.8; }
+        .download-btn { margin-top: 10px; padding: 12px; cursor: pointer; background: #003366; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; transition: 0.3s; }
+        .download-btn:hover { background: #001a33; }
+        input, textarea { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; background: #f8f9fa; }
+        h1 { text-align: center; color: #003366; font-size: 28px; }
+        h2, h3 { color: #002147; border-bottom: 3px solid #003366; padding-bottom: 5px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #f9f9f9; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #003366; color: white; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Professional Resume Builder</h1>
+    <div class="container">
+        <div class="form-section">
+            <h2>Enter Your Details</h2>
+            <label>Full Name: <input type="text" id="name" oninput="updateResume()"></label><br>
+            <label>Summary: <textarea id="summary" oninput="updateResume()"></textarea></label><br>
+            <h3>Education</h3>
+            <label>Primary Education Institution: <input type="text" id="primary-institution" oninput="updateResume()"></label><br>
+            <label>Primary Education Percentage: <input type="text" id="primary-percentage" oninput="updateResume()"></label><br>
+            <label>Secondary Education Institution: <input type="text" id="secondary-institution" oninput="updateResume()"></label><br>
+            <label>Secondary Education Percentage: <input type="text" id="secondary-percentage" oninput="updateResume()"></label><br>
+            <label>Higher Education Institution: <input type="text" id="higher-institution" oninput="updateResume()"></label><br>
+            <label>Higher Education Percentage: <input type="text" id="higher-percentage" oninput="updateResume()"></label><br>
+            <label>Skills: <textarea id="skills" oninput="updateResume()"></textarea></label><br>
+            <label>Languages: <textarea id="languages" oninput="updateResume()"></textarea></label><br>
+            <label>Experience: <textarea id="experience" oninput="updateResume()"></textarea></label><br>
+            <button class="download-btn" onclick="downloadResume()">Download as PDF</button>
+        </div>
+        <div class="resume-preview">
+            <h2>Resume Preview</h2>
+            <div class="resume" id="resume">
+                <h2 id="resume-name">Your Name</h2>
+                <h3>Summary</h3>
+                <p id="resume-summary">Your summary will appear here...</p>
+                <h3>Education</h3>
+                <table>
+                    <tr>
+                        <th>Level</th>
+                        <th>Institution</th>
+                        <th>Percentage</th>
+                    </tr>
+                    <tr>
+                        <td>Primary Education</td>
+                        <td id="resume-primary-institution">Your primary school...</td>
+                        <td id="resume-primary-percentage">Your percentage...</td>
+                    </tr>
+                    <tr>
+                        <td>Secondary Education</td>
+                        <td id="resume-secondary-institution">Your secondary school...</td>
+                        <td id="resume-secondary-percentage">Your percentage...</td>
+                    </tr>
+                    <tr>
+                        <td>Higher Education</td>
+                        <td id="resume-higher-institution">Your higher education...</td>
+                        <td id="resume-higher-percentage">Your percentage...</td>
+                    </tr>
+                </table>
+                <h3>Skills</h3>
+                <p id="resume-skills">Your skills will appear here...</p>
+                <h3>Languages</h3>
+                <p id="resume-languages">Your languages will appear here...</p>
+                <h3>Experience</h3>
+                <p id="resume-experience">Your experience will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateResume() {
+            document.getElementById('resume-name').innerText = document.getElementById('name').value || 'Your Name';
+            document.getElementById('resume-summary').innerText = document.getElementById('summary').value || 'Your summary will appear here...';
+            document.getElementById('resume-primary-institution').innerText = document.getElementById('primary-institution').value || 'Your primary school...';
+            document.getElementById('resume-primary-percentage').innerText = document.getElementById('primary-percentage').value || 'Your percentage...';
+            document.getElementById('resume-secondary-institution').innerText = document.getElementById('secondary-institution').value || 'Your secondary school...';
+            document.getElementById('resume-secondary-percentage').innerText = document.getElementById('secondary-percentage').value || 'Your percentage...';
+            document.getElementById('resume-higher-institution').innerText = document.getElementById('higher-institution').value || 'Your higher education...';
+            document.getElementById('resume-higher-percentage').innerText = document.getElementById('higher-percentage').value || 'Your percentage...';
+        }
+
+        function downloadResume() {
+            const resume = document.getElementById('resume');
+            html2pdf().from(resume).save('resume.pdf');
+        }
+    </script>
+</body>
+</html>
